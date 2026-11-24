@@ -1,0 +1,527 @@
+/* =====================================================================
+   Estilos generales - Tienda de Azahara
+   Formularios centrados en la página
+   ===================================================================== */
+
+/* Colores reutilizables */
+:root {
+    --color-fondo: #eef2f7;
+    --color-tarjeta: #ffffff;
+    --color-texto: #2d3748;
+    --color-suave: #718096;
+    --color-borde: #cbd5e0;
+    --color-principal: #3b5bdb;
+    --color-principal-hover: #2f4ac0;
+    --color-error: #c53030;
+    --color-error-fondo: #fff5f5;
+    --color-exito: #276749;
+    --color-exito-fondo: #f0fff4;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+/* El body ocupa toda la pantalla y centra el contenido en horizontal y vertical */
+body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 24px 16px;
+    background-color: var(--color-fondo);
+    color: var(--color-texto);
+    font-family: "Segoe UI", Arial, sans-serif;
+    line-height: 1.5;
+}
+
+/* Caja blanca que contiene el formulario */
+.contenedor {
+    width: 100%;
+    max-width: 420px;
+    padding: 32px;
+    background-color: var(--color-tarjeta);
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+/* Versión más ancha para formularios con muchos campos (registro, artículos...) */
+.contenedor.ancho {
+    max-width: 640px;
+}
+
+.contenedor h1 {
+    margin: 0 0 4px;
+    font-size: 1.6rem;
+    text-align: center;
+}
+
+.contenedor .subtitulo {
+    margin: 0 0 24px;
+    color: var(--color-suave);
+    text-align: center;
+}
+
+/* Cada pareja label + input */
+.campo {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 16px;
+}
+
+.campo label {
+    margin-bottom: 6px;
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.campo input,
+.campo select,
+.campo textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid var(--color-borde);
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: inherit;
+    color: var(--color-texto);
+    background-color: #fff;
+}
+
+.campo input:focus,
+.campo select:focus,
+.campo textarea:focus {
+    outline: none;
+    border-color: var(--color-principal);
+    box-shadow: 0 0 0 3px rgba(59, 91, 219, 0.2);
+}
+
+/* Rejilla de dos columnas para formularios largos */
+.rejilla {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 16px;
+}
+
+/* Un campo que ocupa las dos columnas */
+.rejilla .completo {
+    grid-column: 1 / -1;
+}
+
+/* En móvil, una sola columna */
+@media (max-width: 600px) {
+    .contenedor {
+        padding: 24px 20px;
+    }
+
+    .rejilla {
+        grid-template-columns: 1fr;
+    }
+}
+
+.nota {
+    margin: 0 0 16px;
+    font-size: 0.85rem;
+    color: var(--color-suave);
+}
+
+/* Botones (sirve para <button> y para enlaces con aspecto de botón) */
+.botones {
+    display: flex;
+    gap: 12px;
+    margin-top: 8px;
+}
+
+.boton {
+    flex: 1;
+    display: inline-block;
+    padding: 11px 16px;
+    border: 1px solid var(--color-principal);
+    border-radius: 8px;
+    background-color: var(--color-principal);
+    color: #fff;
+    font-size: 1rem;
+    font-family: inherit;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.boton:hover {
+    background-color: var(--color-principal-hover);
+}
+
+.boton.secundario {
+    background-color: transparent;
+    color: var(--color-principal);
+}
+
+.boton.secundario:hover {
+    background-color: rgba(59, 91, 219, 0.08);
+}
+
+/* Enlaces sueltos (olvidé mi contraseña, registrarse...) */
+.enlaces {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 0.95rem;
+}
+
+.enlaces a {
+    color: var(--color-principal);
+    text-decoration: none;
+}
+
+.enlaces a:hover {
+    text-decoration: underline;
+}
+
+.enlaces p {
+    margin: 6px 0;
+}
+
+/* Cajas de mensajes */
+.errores,
+.exito {
+    margin-bottom: 20px;
+    padding: 12px 16px;
+    border-radius: 8px;
+}
+
+.errores {
+    border: 1px solid var(--color-error);
+    background-color: var(--color-error-fondo);
+    color: var(--color-error);
+}
+
+.errores h4 {
+    margin: 0 0 6px;
+}
+
+.errores ul {
+    margin: 0;
+    padding-left: 20px;
+}
+
+.exito {
+    border: 1px solid var(--color-exito);
+    background-color: var(--color-exito-fondo);
+    color: var(--color-exito);
+}
+
+/* =====================================================================
+   Páginas con sesión iniciada: barra de menú, listados y tablas
+   ===================================================================== */
+
+:root {
+    --color-peligro: #c53030;
+    --color-peligro-hover: #9b2c2c;
+}
+
+/* En las páginas con menú el contenido empieza arriba (no centrado en vertical) */
+body.con-menu {
+    display: block;
+    padding: 0;
+}
+
+/* Barra superior con el menú */
+.barra {
+    background-color: var(--color-tarjeta);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.barra-interior {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 12px 16px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.marca {
+    font-weight: 700;
+    font-size: 1.15rem;
+    color: var(--color-texto);
+    text-decoration: none;
+}
+
+.menu {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 16px;
+}
+
+.menu a {
+    color: var(--color-principal);
+    text-decoration: none;
+}
+
+.menu a:hover {
+    text-decoration: underline;
+}
+
+.menu .usuario {
+    color: var(--color-suave);
+}
+
+.menu .salir {
+    color: var(--color-peligro);
+}
+
+/* Zona de contenido */
+.pagina {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 24px 16px 48px;
+}
+
+.titulo-seccion {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.titulo-seccion h1 {
+    margin: 0;
+    font-size: 1.6rem;
+}
+
+.titulo-seccion .boton {
+    flex: none;
+}
+
+/* Tarjeta blanca dentro de las páginas con menú (formularios, avisos...) */
+.tarjeta {
+    background-color: var(--color-tarjeta);
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    padding: 32px;
+}
+
+/* Formularios dentro de las páginas con menú: centrados en horizontal */
+.tarjeta.formulario {
+    max-width: 640px;
+    margin: 0 auto;
+}
+
+.tarjeta.formulario h1 {
+    margin: 0 0 4px;
+    font-size: 1.6rem;
+    text-align: center;
+}
+
+.tarjeta.vacio {
+    text-align: center;
+    color: var(--color-suave);
+}
+
+/* Buscador */
+.buscador {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.buscador input[type="search"] {
+    flex: 1 1 260px;
+    padding: 10px 12px;
+    border: 1px solid var(--color-borde);
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: inherit;
+}
+
+.buscador .boton {
+    flex: none;
+}
+
+/* Tablas de listados */
+.tabla-contenedor {
+    overflow-x: auto;   /* en móvil la tabla se desplaza dentro de su caja, no toda la página */
+    background-color: var(--color-tarjeta);
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+.tabla {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.tabla th,
+.tabla td {
+    padding: 12px 14px;
+    text-align: left;
+    border-bottom: 1px solid #e2e8f0;
+    vertical-align: middle;
+}
+
+.tabla th {
+    background-color: #f7fafc;
+    font-size: 0.9rem;
+    white-space: nowrap;
+}
+
+.tabla th a {
+    color: var(--color-texto);
+    text-decoration: none;
+}
+
+.tabla th a:hover {
+    color: var(--color-principal);
+}
+
+.tabla tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.tabla tbody tr:hover {
+    background-color: #f9fbff;
+}
+
+.tabla .numero {
+    text-align: right;
+    white-space: nowrap;
+}
+
+.tabla .descripcion {
+    font-size: 0.85rem;
+    color: var(--color-suave);
+}
+
+.acciones {
+    white-space: nowrap;
+}
+
+.acciones form {
+    display: inline;
+}
+
+/* Imágenes de artículos */
+.miniatura {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    border-radius: 6px;
+    border: 1px solid #e2e8f0;
+    background-color: #fff;
+}
+
+.sin-imagen {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    color: var(--color-suave);
+    text-align: center;
+}
+
+.imagen-actual {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 8px;
+}
+
+.casilla {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: normal;
+}
+
+/* Botones pequeños y de peligro (borrar, darse de baja) */
+.boton.pequeno {
+    flex: none;
+    padding: 6px 12px;
+    font-size: 0.85rem;
+}
+
+.boton.peligro {
+    background-color: var(--color-peligro);
+    border-color: var(--color-peligro);
+    color: #fff;
+}
+
+.boton.peligro:hover {
+    background-color: var(--color-peligro-hover);
+}
+
+.zona-peligro {
+    margin-top: 32px;
+    padding-top: 20px;
+    border-top: 1px solid #e2e8f0;
+}
+
+.zona-peligro h4 {
+    margin: 0 0 6px;
+    color: var(--color-peligro);
+}
+
+/* Etiquetas de rol */
+.etiqueta {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.rol-admin {
+    background-color: #fed7d7;
+    color: #9b2c2c;
+}
+
+.rol-editor {
+    background-color: #feebc8;
+    color: #9c4221;
+}
+
+.rol-cliente {
+    background-color: #c6f6d5;
+    color: #276749;
+}
+
+/* Paginación */
+.paginacion {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 20px;
+}
+
+.paginacion a,
+.paginacion span {
+    padding: 6px 12px;
+    border-radius: 8px;
+    border: 1px solid var(--color-borde);
+    background-color: var(--color-tarjeta);
+    color: var(--color-principal);
+    text-decoration: none;
+}
+
+.paginacion a:hover {
+    background-color: rgba(59, 91, 219, 0.08);
+}
+
+.paginacion .actual {
+    background-color: var(--color-principal);
+    border-color: var(--color-principal);
+    color: #fff;
+}
+
+@media (max-width: 600px) {
+    .tarjeta {
+        padding: 24px 20px;
+    }
+}
